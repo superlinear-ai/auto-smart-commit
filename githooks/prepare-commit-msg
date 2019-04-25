@@ -25,7 +25,7 @@ def current_git_branch_name() -> str:
 
 
 def extract_jira_issue_key(message: str) -> Optional[str]:
-    project_key, issue_number = r'\b[A-Z]{2,}\b', r'\b[0-9]+\b'
+    project_key, issue_number = r'[A-Z]{2,}', r'[0-9]+'
     match = re.search(f'{project_key}-{issue_number}', message)
     return match and match.group(0)
 
@@ -96,7 +96,8 @@ def main():
     with open(commit_msg_filepath, 'r') as f:
         commit_msg = f.read()
     # Replace the default multiline commit message.
-    if 'Please enter the commit message for your changes.' in commit_msg:
+    default_commit_msg = 'Please enter the commit message for your changes.' in commit_msg
+    if default_commit_msg:
         # https://chris.beams.io/posts/git-commit/
         commit_msg = '''
         d$:<If applied, this commit will "Open the pod bay doors">
@@ -104,7 +105,9 @@ def main():
         '''.strip()
     # Split the commit into a subject and body and apply some light formatting.
     commit_elements = commit_msg.split('\n', maxsplit=1)
-    commit_subject = commit_elements[0].strip().capitalize()
+    commit_subject = commit_elements[0].strip()
+    if not default_commit_msg:
+        commit_subject.capitalize()
     commit_subject = re.sub(r'\.+$', '', commit_subject)
     commit_body = None if len(commit_elements) == 1 else commit_elements[1]
     commit_body = commit_body.strip()
