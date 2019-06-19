@@ -33,11 +33,21 @@ def extract_jira_issue_key(message: str) -> Optional[str]:
 def last_commit_datetime() -> datetime.datetime:
     # https://git-scm.com/docs/git-log#_pretty_formats
     author = run_command('git config user.email')
-    last_datetime = datetime.datetime.strptime(
-        run_command(
-            f'git log -1 --branches --format=%aI --author={author}'
-        ).split('+')[0],
-        '%Y-%m-%dT%H:%M:%S')  # %z
+    last_author_stamp = run_command(
+        f'git log -1 --branches --format=%aI --author={author}'
+    )
+    if '+' in last_author_stamp:
+        last_datetime = datetime.datetime.strptime(
+            last_author_stamp.split('+')[0],
+            '%Y-%m-%dT%H:%M:%S'
+        )  # %z
+    else:
+        last_datetime = datetime.datetime.strptime(
+            run_command(
+                f'git log -1 --branches --format=%aI'
+            ).split('+')[0],
+            '%Y-%m-%dT%H:%M:%S'
+        )  # %z
     return last_datetime
 
 
