@@ -23,22 +23,12 @@ See [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/
 
 ## Installation
 
-### Installation with pre-commit
-
 Add the following to your `.pre-commit-config.yaml` file:
 
 ```yaml
 repos:
   - repo: https://github.com/radix-ai/auto-smart-commit
-    rev: v1.0.0
+    rev: v1.0.1
     hooks:
       - id: auto-smart-commit
-```
-
-### Manual installation
-
-Copy `auto-smart-commit.py` to a `githooks` directory in your repository, then run the following command from the root of your repository:
-
-```bash
-git config --local core.hooksPath githooks
 ```
