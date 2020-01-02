@@ -26,9 +26,12 @@ See [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/
 Add the following to your `.pre-commit-config.yaml` file:
 
 ```yaml
+default_stages: [commit, manual]
 repos:
   - repo: https://github.com/radix-ai/auto-smart-commit
     rev: v1.0.1
     hooks:
       - id: auto-smart-commit
 ```
+
+and make sure to run `pre-commit install --hook-type prepare-commit-msg` to install the hook type necessary for this hook.
