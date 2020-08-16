@@ -9,7 +9,10 @@ from typing import NoReturn, Optional
 
 
 def run_command(command: str) -> str:
-    stdout: str = check_output(command.split()).decode("utf-8").strip()
+    try:
+        stdout: str = check_output(command.split()).decode("utf-8").strip()
+    except Exception:
+        stdout = ""
     return stdout
 
 

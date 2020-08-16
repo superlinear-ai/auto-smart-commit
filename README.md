@@ -29,7 +29,7 @@ Add the following to your `.pre-commit-config.yaml` file:
 default_stages: [commit, manual]
 repos:
   - repo: https://github.com/radix-ai/auto-smart-commit
-    rev: v1.0.1
+    rev: v1.0.2
     hooks:
       - id: auto-smart-commit
 ```
