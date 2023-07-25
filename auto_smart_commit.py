@@ -2,6 +2,7 @@
 
 import re
 import sys
+
 from datetime import datetime
 from math import floor
 from subprocess import check_output
@@ -59,8 +60,8 @@ def num_nights(start: datetime, end: datetime) -> int:
 def time_worked_on_commit() -> Optional[str]:
     now = datetime.now()
     last = last_commit_datetime()
-    # Determine the number of minutes worked on this commit as the number of
-    # minutes since the last commit minus the lunch breaks and nights.
+    # Determine the number of minutes worked on this commit as the number of minutes since the last
+    # commit minus the lunch breaks and nights.
     working_hours_per_day = 8
     working_days_per_week = 5
     minutes = max(
@@ -69,8 +70,7 @@ def time_worked_on_commit() -> Optional[str]:
         - num_lunches(last, now) * 45,
         0,
     )
-    # Convert the number of minutes worked to working weeks, days, hours,
-    # minutes.
+    # Convert the number of minutes worked to working weeks, days, hours, minutes.
     if minutes > 0:
         hours = floor(minutes / 60)
         minutes -= hours * 60
